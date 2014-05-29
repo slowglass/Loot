@@ -1,10 +1,16 @@
 
 local LastItemUpdated = {}
 
-local function G(msg) return "|c064F0D"..msg.."|r" end
+local function Green(msg) return "|c064F0D"..msg.."|r" end
 
-local function LootReceived(eventCode, receivedBy, itemName, quantity, itemSound, lootType, mine) 
-  if lootType ~= LOOT_TYPE_ITEM then return end
+local function TimeStamp()
+  if (pChat==nil or pChat.opts == nil or pChat.opts.showTimestamp == nil) then return "" end
+  if (pChat.opts.colours==nil or pChat.opts.colours.timestamp == nil) then return "" end
+  if pChat.opts.showTimestamp ~= true then return "" end
+  return string.format("%s[%s] ", pChat.opts.colours.timestamp, GetTimeString())
+end
+
+local function ShowMyLoot(quantity)
   local itemName = LocalizeString("<<C:1>>", LastItemUpdated.realItemName)
   
   local totals = "" 
@@ -20,7 +26,31 @@ local function LootReceived(eventCode, receivedBy, itemName, quantity, itemSound
     totals = totals .. " - Total: " .. tostring(LastItemUpdated.totalItemCount)            
   end
 
-  CHAT_SYSTEM:AddMessage(Green("Loot Received: [ ") .. itemName .. Green(" ]" .. totals))
+  CHAT_SYSTEM:AddMessage(TimeStamp()..Green("Loot Received: [ ") .. itemName .. Green(" ]" .. totals))
+end
+
+local function ShowLoot(receivedBy, itemName, quantity)
+  local lItemName = LocalizeString("<<C:1>>", itemName)
+  local lReceivedBy = LocalizeString("<<C:1>>", receivedBy)
+
+  local totals = "" 
+  if (quantity > 1) then      
+    totals = totals .. " x " .. tostring(quantity) .. " "
+  end    
+
+  CHAT_SYSTEM:AddMessage(TimeStamp()..Green("Loot Received: [ ") .. lItemName .. Green(" ]" .. totals .. " by " .. lReceivedBy))
+end
+
+local function LootReceived(eventCode, receivedBy, itemName, quantity, itemSound, lootType, mine) 
+  if lootType ~= LOOT_TYPE_ITEM then return end
+
+  if (mine and LastItemUpdated.realItemName ~= nil) then
+    ShowMyLoot(quantity)
+  else
+    ShowLoot(receivedBy, itemName, quantity)
+  end
+
+  LastItemUpdated.realItemName = nil
 end
 
 local function InventoryUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, updateReason)
