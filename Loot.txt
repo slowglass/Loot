@@ -5,3 +5,4 @@
 ## APIVersion: 100003
 
 Loot.lua
+AutoTrade.lua
