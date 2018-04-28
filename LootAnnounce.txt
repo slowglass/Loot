@@ -1,0 +1,10 @@
+## Title: Loot Announce - |cAA00000.1.0|r
+## Description: Adds the ability to restack common items to fix ESO's fisation in creating multiple stacks of the same thing.
+## Author: |c00C000Slowglass|r
+## Version: 0.1.0
+## APIVersion: 100022
+## SavedVariables: LootAnnounce_Settings
+
+LootAnnounce.lua
+
+

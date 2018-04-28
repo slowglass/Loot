@@ -1,9 +1,13 @@
-Loot
-====
+LootAnnounce
+============
 
-Simple Loot AddOn that announces Loot.
-Similar to LootDrop from which I learned a lot of the function calls
-Cut down to be just what I want and nothing more. 
+This is a simple ESO add-ons to list loot to chat
 
-Unlikely ever to be officially published
 
+Required Disclamer
+==================
+This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates. 
+The Elder Scrolls and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in the United States and/or other countries. 
+All rights reserved
+
+You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
